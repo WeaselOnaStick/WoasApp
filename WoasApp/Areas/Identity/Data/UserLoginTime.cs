@@ -6,7 +6,7 @@
         public DateTime LoginTime { get; set; }
 
         //foreign
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public WoasAppUser User { get; set; }
     }
 }

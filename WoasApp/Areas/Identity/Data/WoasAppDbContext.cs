@@ -7,6 +7,9 @@ namespace WoasApp.Data;
 
 public class WoasAppDbContext : IdentityDbContext<WoasAppUser>
 {
+
+    public DbSet<UserLoginTime> UserLoginTimes { get; set; }
+
     public WoasAppDbContext(DbContextOptions<WoasAppDbContext> options)
         : base(options)
     {
@@ -15,8 +18,14 @@ public class WoasAppDbContext : IdentityDbContext<WoasAppUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
+
+        builder.Entity<UserLoginTime>()
+            .HasOne<WoasAppUser>(s => s.User)
+            .WithMany(g => g.LoginTimes)
+            .HasForeignKey(s => s.UserId)
+            .HasPrincipalKey(UserLoginTime => UserLoginTime.Id);
+
+        builder.Entity<WoasAppUser>()
+            .HasKey(u => u.Id);
     }
 }
