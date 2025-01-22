@@ -7,8 +7,11 @@
 <ul class="navbar-nav ms-auto">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
+    <li class="nav-item justify-content-center" style="align-self:center">
         Hello @UserManager.GetUserName(User)!
+    </li>
+    <li class="nav-item p-3">
+        <a class="btn btn-primary text-dark" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
     </li>
 }
 else
@@ -17,7 +20,7 @@ else
         <a class="btn btn-primary text-dark" asp-controller="Account" asp-action="Register">Register</a>
     </li>
     <li class="nav-item p-3">
-        <a class="btn btn-secondary text-dark" asp-controller="Account" asp-action="Login">Login</a>
+        <a class="btn btn-info text-dark" asp-controller="Account" asp-action="Login">Login</a>
     </li>
 }
 </ul>

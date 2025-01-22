@@ -5,13 +5,16 @@ namespace WoasApp.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Email Required!")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Username Required!")]
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Passowrd Required!")]
         [PasswordPropertyText]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        
+
+        [DisplayName("Remember Me")]
+        public bool Remember { get; set; }
+
     }
 }

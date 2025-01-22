@@ -18,11 +18,6 @@ namespace WoasApp.Controllers
             return View();
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
         public IActionResult Dashboard()
         {
             return View();

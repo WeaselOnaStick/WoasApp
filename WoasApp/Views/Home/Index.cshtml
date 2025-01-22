@@ -1,8 +1,32 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using WoasApp.Areas.Identity.Data
+
+@inject SignInManager<WoasAppUser> SignInManager
+@inject UserManager<WoasAppUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
+    
 }
 
-<div class="card text-center p-1">
+<div class="card align-items-center p-1">
     <h1 class="display-4 card-title">Welcome to the website</h1>
-    <p class="card-body">Proceed to login or registration\nto get access to the dashboard</p>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="card-body"> 
+            <p style="text-align:center">Hello, <i>@UserManager.GetUserName(User)!</i> <br /> Proceed to the dashboard to manage other users.</p>
+            <div style="display:flex;align-content:center;justify-content: space-between;">
+                <img src="~/images/pbjt.gif" class="p-2" style="max-height:64px; max-width:64px; align-self:center" />
+                <a class="btn btn-primary p-2" style="max-width:128px; align-self:center" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                <img src="~/images/pbjt.gif" class="p-2" style="max-height:64px; max-width:64px; align-self:center" />
+            </div>
+        </div>
+
+
+        
+    }
+    else
+    {
+        <p class="card-body">Proceed to login or registration <br/> to get access to the dashboard</p>
+    }
 </div>

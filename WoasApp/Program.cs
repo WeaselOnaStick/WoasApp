@@ -14,10 +14,16 @@ builder.Services.AddIdentity<WoasAppUser, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 1;
     options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredUniqueChars = 1;
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedPhoneNumber = false;
+    options.Lockout.AllowedForNewUsers = false;
+    
 })
     .AddEntityFrameworkStores<WoasAppDbContext>()
     .AddDefaultTokenProviders();
