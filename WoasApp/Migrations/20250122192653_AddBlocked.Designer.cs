@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WoasApp.Data;
 
@@ -11,9 +12,11 @@ using WoasApp.Data;
 namespace WoasApp.Migrations
 {
     [DbContext(typeof(WoasAppDbContext))]
-    partial class WoasAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250122192653_AddBlocked")]
+    partial class AddBlocked
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
