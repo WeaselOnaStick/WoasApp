@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WoasApp.Areas.Identity.Data
+
+@inject SignInManager<WoasAppUser> SignInManager
+@inject UserManager<WoasAppUser> UserManager
+
+<ul class="navbar-nav ms-auto">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        Hello @UserManager.GetUserName(User)!
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+    </li>
+}
+</ul>
