@@ -13,10 +13,18 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    background-image: url('../images/stocksnap_ojuezhuehs.jpg');
+    background-size:cover;
+    margin-bottom: 60px;
+}
+
+nav {
+    background-color: #A3806AD0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
