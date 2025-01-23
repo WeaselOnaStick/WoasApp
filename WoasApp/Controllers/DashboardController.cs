@@ -8,6 +8,7 @@ using WoasApp.ViewModels;
 
 namespace WoasApp.Controllers
 {
+
     public class DashboardController : Controller
     {
         private UserManager<WoasAppUser> UserManager;
@@ -16,6 +17,7 @@ namespace WoasApp.Controllers
         public DashboardController(UserManager<WoasAppUser> userManager, SignInManager<WoasAppUser> signInManager)
         {
             UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         async public Task<IActionResult> Index()
@@ -38,42 +40,62 @@ namespace WoasApp.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUsersAsync(List<string> SelectedUserIds)
         {
-            bool delSelf = false;
-            string curUserID = UserManager.GetUserId(User);
-            foreach (var userId in SelectedUserIds)
-            {
-                delSelf = userId == curUserID;
-                var user = await UserManager.FindByIdAsync(userId);
-                if (user != null)
-                    await UserManager.DeleteAsync(user);
-            }
-            return RedirectToAction("Index", delSelf ? "Home" : "Dashboard");
+            return await SetBlockUsersAsync(SelectedUserIds, UserManageAction.Delete);
         }
 
         [HttpPost]
         public async Task<IActionResult> BlockUsersAsync(List<string> SelectedUserIds)
         {
-            return await SetBlockUsersAsync(SelectedUserIds, true);
+            return await SetBlockUsersAsync(SelectedUserIds, UserManageAction.Block);
         }
 
         [HttpPost]
         public async Task<IActionResult> UnblockUsersAsync(List<string> SelectedUserIds)
         {
-            return await SetBlockUsersAsync(SelectedUserIds, false);
+            return await SetBlockUsersAsync(SelectedUserIds, UserManageAction.Unblock);
         }
 
-
-        private async Task<IActionResult> SetBlockUsersAsync(List<string> SelectedUserIds, bool block)
+        enum UserManageAction
         {
+            Block,
+            Unblock,
+            Delete
+        }
+
+        private async Task<IActionResult> SetBlockUsersAsync(List<string> SelectedUserIds, UserManageAction action)
+        {
+            string currentUserId = UserManager.GetUserId(User);
+            bool foundCurrentUser = false;
+
             foreach (var userId in SelectedUserIds)
             {
+                foundCurrentUser = (currentUserId == userId) || foundCurrentUser;
                 var user = await UserManager.FindByIdAsync(userId);
                 if (user != null)
                 {
-                    user.Blocked = block;
+                    switch (action)
+                    {
+                        case UserManageAction.Block:
+                            user.Blocked = true;
+                            break;
+                        case UserManageAction.Unblock:
+                            user.Blocked = false;
+                            break;
+                        case UserManageAction.Delete:
+                            await UserManager.DeleteAsync(user);
+                            break;
+                    }
                     await UserManager.UpdateAsync(user);
                 }
             }
+            bool isCurrentDeletedOrBlocked = foundCurrentUser && (action == UserManageAction.Block || action == UserManageAction.Delete);
+            
+            if (isCurrentDeletedOrBlocked){
+                await SignInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home");
+            }
+
+
             return RedirectToAction("Index");
         }
     }
