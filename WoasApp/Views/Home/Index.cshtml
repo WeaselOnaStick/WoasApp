@@ -12,6 +12,10 @@
 <link href="~/css/home_bg.css" rel="stylesheet" asp-append-version="true"/>
 
 <div class="card align-items-center p-1">
+    @if (TempData["Message"] != null)
+        {
+            <div class="text-danger">@TempData["Message"]</div>
+        }
     <h1 class="display-4 card-title">Welcome to the website</h1>
     @if (SignInManager.IsSignedIn(User))
     {

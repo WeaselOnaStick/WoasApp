@@ -40,19 +40,19 @@ namespace WoasApp.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUsersAsync(List<string> SelectedUserIds)
         {
-            return await SetBlockUsersAsync(SelectedUserIds, UserManageAction.Delete);
+            return await ModifyUsersAsync(SelectedUserIds, UserManageAction.Delete);
         }
 
         [HttpPost]
         public async Task<IActionResult> BlockUsersAsync(List<string> SelectedUserIds)
         {
-            return await SetBlockUsersAsync(SelectedUserIds, UserManageAction.Block);
+            return await ModifyUsersAsync(SelectedUserIds, UserManageAction.Block);
         }
 
         [HttpPost]
         public async Task<IActionResult> UnblockUsersAsync(List<string> SelectedUserIds)
         {
-            return await SetBlockUsersAsync(SelectedUserIds, UserManageAction.Unblock);
+            return await ModifyUsersAsync(SelectedUserIds, UserManageAction.Unblock);
         }
 
         enum UserManageAction
@@ -62,7 +62,14 @@ namespace WoasApp.Controllers
             Delete
         }
 
-        private async Task<IActionResult> SetBlockUsersAsync(List<string> SelectedUserIds, UserManageAction action)
+        private Dictionary<UserManageAction, string> UserManageActionMessages = new Dictionary<UserManageAction, string>
+        {
+            { UserManageAction.Block, "Blocked" },
+            { UserManageAction.Unblock, "Unblocked" },
+            { UserManageAction.Delete, "Deleted" }
+        };
+
+        private async Task<IActionResult> ModifyUsersAsync(List<string> SelectedUserIds, UserManageAction action)
         {
             string currentUserId = UserManager.GetUserId(User);
             bool foundCurrentUser = false;
@@ -92,10 +99,10 @@ namespace WoasApp.Controllers
             
             if (isCurrentDeletedOrBlocked){
                 await SignInManager.SignOutAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Logout", "Account");
             }
 
-
+            TempData["ModifyUsersAsyncResult"] = $"{UserManageActionMessages[action]} {SelectedUserIds.Count} user{(SelectedUserIds.Count == 1 ? "" : "s")}!";
             return RedirectToAction("Index");
         }
     }

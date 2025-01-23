@@ -33,6 +33,14 @@ namespace WoasApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            var user = await userManager.FindByNameAsync(model.Username);
+
+            if (user != null && user.Blocked)
+            {
+                ModelState.AddModelError("Blocked", "Your account is blocked!");
+                return View(model);
+            }
+
             var res = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.Remember, false);
 
             if (!res.Succeeded)
@@ -41,7 +49,7 @@ namespace WoasApp.Controllers
                 return View(model);
             }
 
-            var user = await userManager.GetUserAsync(User);
+
             if (user.LoginTimes == null)
                 user.LoginTimes = new List<UserLoginTime>();
             user.LoginTimes.Add(new UserLoginTime { LoginTime = DateTime.UtcNow });
@@ -75,6 +83,7 @@ namespace WoasApp.Controllers
         public async Task<IActionResult> LogoutAsync()
         {
             await signInManager.SignOutAsync();
+            TempData["Message"] = "You have been logged out!";
             return RedirectToAction("Index", "Home");
         }
     }
