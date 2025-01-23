@@ -17,11 +17,6 @@ html {
     min-height: 100%;
 }
 
-body {
-    background-image: url('../images/stocksnap_ojuezhuehs.jpg');
-    background-size:cover;
-    margin-bottom: 60px;
-}
 
 nav {
     background-color: #A3806AD0;
