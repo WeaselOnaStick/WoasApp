@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WoasApp.ViewModels
+@using Newtonsoft.Json
+@model List<UserViewModel>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+
+<link href="~/css/dash_bg.css" rel="stylesheet" asp-append-version="true"/>
+
+<form method="post">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card" style="width: 100%; max-width: 1600px;">
+            <h2 class="card-title text-center mt-4 display-4">User Management Dashboard</h2>
+            <div class="card-body">
+
+                <button type="submit" asp-controller="Dashboard" asp-action="DeleteUsers"   class="btn btn-outline-danger"><i class="bi bi-trash"></i>Delete Users</button> 
+                <button type="submit" asp-controller="Dashboard" asp-action="BlockUsers"    class="btn btn-outline-primary"><i class="bi bi-lock-fill"></i>Block Users</button>
+                <button type="submit" asp-controller="Dashboard" asp-action="UnblockUsers"  class="btn btn-outline-primary"><i class="bi bi-unlock-fill"></i>Unblock Users</button>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Last Login</th>
+                            <th>ID</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var u in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="SelectedUserIds" value="@u.Id"/>
+                                </td>
+                                <td>@u.Username</td>
+                                <td>@u.Email</td>
+                                <td>
+                                    @if (u.LastLogin == null)
+                                    {
+                                        <span class="badge bg-warning">Never</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-info">@u.LastLogin</span>
+                                    }
+                                </td>
+                                <td>@u.Id</td>
+                                <td>
+                                    @if (!u.Blocked) 
+                                    { 
+                                        <span class="badge bg-success">Active</span> 
+                                    }
+                                    else             
+                                    { 
+                                        <span class="badge bg-danger">Blocked</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

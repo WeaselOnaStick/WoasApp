@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using WoasApp.Areas.Identity.Data;
 
 namespace WoasApp.Data;
@@ -20,12 +21,8 @@ public class WoasAppDbContext : IdentityDbContext<WoasAppUser>
         base.OnModelCreating(builder);
 
         builder.Entity<UserLoginTime>()
-            .HasOne<WoasAppUser>(s => s.User)
-            .WithMany(g => g.LoginTimes)
-            .HasForeignKey(s => s.UserId)
-            .HasPrincipalKey(UserLoginTime => UserLoginTime.Id);
-
-        builder.Entity<WoasAppUser>()
-            .HasKey(u => u.Id);
+            .HasOne(ult => ult.User)
+            .WithMany(u => u.LoginTimes)
+            .HasForeignKey(ult => ult.UserId);
     }
 }

@@ -6,7 +6,7 @@ namespace WoasApp.ViewModels
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Username Required!")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "Passowrd Required!")]
         [PasswordPropertyText]

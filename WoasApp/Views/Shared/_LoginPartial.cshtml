@@ -11,7 +11,10 @@
         Hello @UserManager.GetUserName(User)!
     </li>
     <li class="nav-item p-3">
-        <a class="btn btn-primary text-dark" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+        <a class="btn btn-primary text-dark" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+    </li>
+    <li class="nav-item p-3">
+        <a class="btn btn-secondary text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
     </li>
 }
 else

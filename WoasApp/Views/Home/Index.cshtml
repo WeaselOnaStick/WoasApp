@@ -9,6 +9,8 @@
     
 }
 
+<link href="~/css/home_bg.css" rel="stylesheet" asp-append-version="true"/>
+
 <div class="card align-items-center p-1">
     <h1 class="display-4 card-title">Welcome to the website</h1>
     @if (SignInManager.IsSignedIn(User))
@@ -17,7 +19,7 @@
             <p style="text-align:center">Hello, <i>@UserManager.GetUserName(User)!</i> <br /> Proceed to the dashboard to manage other users.</p>
             <div style="display:flex;align-content:center;justify-content: space-between;">
                 <img src="~/images/pbjt.gif" class="p-2" style="max-height:64px; max-width:64px; align-self:center" />
-                <a class="btn btn-primary p-2" style="max-width:128px; align-self:center" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                <a class="btn btn-primary p-2" style="max-width:128px; align-self:center" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                 <img src="~/images/pbjt.gif" class="p-2" style="max-height:64px; max-width:64px; align-self:center" />
             </div>
         </div>

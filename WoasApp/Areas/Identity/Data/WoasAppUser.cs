@@ -9,7 +9,7 @@ namespace WoasApp.Areas.Identity.Data;
 // Add profile data for application users by adding properties to the WoasAppUser class
 public class WoasAppUser : IdentityUser
 {
-    public ICollection<UserLoginTime> LoginTimes { get; set; } = new List<UserLoginTime>();
+    public ICollection<UserLoginTime> LoginTimes { get; set; }
 
     public bool Blocked { get; set; } = false;
 }

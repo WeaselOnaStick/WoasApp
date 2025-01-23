@@ -4,13 +4,14 @@
 @{
     ViewData["Title"] = "Registration";
 }
+<link href="~/css/home_bg.css" rel="stylesheet" asp-append-version="true" />
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card" style="width: 100%; max-width: 400px;">
         <h2 class="card-title text-center mt-4">Register</h2>
         <div class="card-body">
             <form asp-action="Register" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label"></label>
                     <input asp-for="Name" class="form-control" />

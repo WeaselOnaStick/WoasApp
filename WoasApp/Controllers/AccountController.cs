@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
 using WoasApp.Areas.Identity.Data;
 using WoasApp.ViewModels;
@@ -32,7 +33,7 @@ namespace WoasApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var res = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.Remember, false);
+            var res = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.Remember, false);
 
             if (!res.Succeeded)
             {
@@ -40,7 +41,12 @@ namespace WoasApp.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            var user = await userManager.GetUserAsync(User);
+            if (user.LoginTimes == null)
+                user.LoginTimes = new List<UserLoginTime>();
+            user.LoginTimes.Add(new UserLoginTime { LoginTime = DateTime.UtcNow });
+            await userManager.UpdateAsync(user);
+            return RedirectToAction("Index", "Dashboard");
         }
 
         [HttpPost]
@@ -64,6 +70,12 @@ namespace WoasApp.Controllers
             }
 
             return RedirectToAction("Login", "Account");
+        }
+
+        public async Task<IActionResult> LogoutAsync()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -4,17 +4,18 @@
 @{
     ViewData["Title"] = "Login";
 }
+<link href="~/css/home_bg.css" rel="stylesheet" asp-append-version="true" />
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card" style="width: 100%; max-width: 400px;">
         <h2 class="card-title text-center mt-4">Login</h2>
         <div class="card-body">
             <form asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
-                    <label asp-for="UserName" class="form-label"></label>
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <label asp-for="Username" class="form-label"></label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Password" class="form-label"></label>
