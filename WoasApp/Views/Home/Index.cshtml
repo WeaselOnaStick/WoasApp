@@ -17,6 +17,7 @@
     {
         <div class="card-body"> 
             <p style="text-align:center">Hello, <i>@UserManager.GetUserName(User)!</i> <br /> Proceed to the dashboard to manage other users.</p>
+
             <div style="display:flex;align-content:center;justify-content: space-between;">
                 <img src="~/images/pbjt.gif" class="p-2" style="max-height:64px; max-width:64px; align-self:center" />
                 <a class="btn btn-primary p-2" style="max-width:128px; align-self:center" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
@@ -29,6 +30,11 @@
     }
     else
     {
-        <p class="card-body">Proceed to login or registration <br/> to get access to the dashboard</p>
+        <p class="card-body">Proceed to login or registration to get access to the dashboard</p>
+
+        <img src="https://imgs.xkcd.com/comics/labyrinth_puzzle.png" style="
+            max-width: 400px;
+            padding-bottom: 16px;
+        ">
     }
 </div>
