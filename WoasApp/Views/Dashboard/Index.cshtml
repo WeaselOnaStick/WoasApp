@@ -27,7 +27,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Select</th>
+                            <th><input type="checkbox" id="selectAll"/></th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>Last Login</th>
@@ -40,7 +40,7 @@
                         {
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="SelectedUserIds" value="@u.Id"/>
+                                    <input type="checkbox" name="SelectedUserIds" value="@u.Id" class="UserSelectionCheckbox"/>
                                 </td>
                                 <td>@u.Username</td>
                                 <td>@u.Email</td>
@@ -76,3 +76,17 @@
         </div>
     </div>
 </form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");}
+    <script>
+        let selectAllBtn = document.getElementById("selectAll");
+        let checkboxes = document.getElementsByName("SelectedUserIds");
+        selectAllBtn.addEventListener("change", function (e){
+            for (var box of checkboxes){
+                box.checked = e.target.checked;
+            }
+        });
+    </script>
+}
