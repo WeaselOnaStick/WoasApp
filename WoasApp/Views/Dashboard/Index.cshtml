@@ -19,73 +19,73 @@
                 <div class="text-danger text-center">@TempData["ModifyUsersAsyncResult"]</div>
             }
             <div class="card-body">
-
                 <div class="d-flex gap-2 mb-3">
-              <button type="submit" asp-controller="Dashboard" asp-action="DeleteUsers"   class="btn btn-outline-danger">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-</svg>
-                Delete Users
-              </button>
-              <button type="submit" asp-controller="Dashboard" asp-action="BlockUsers"    class="btn btn-outline-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
-  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"></path>
-</svg>
-                Block Users
-              </button>
-              <button type="submit" asp-controller="Dashboard" asp-action="UnblockUsers"  class="btn btn-outline-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock" viewBox="0 0 16 16">
-  <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2M3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1z"/>
-</svg>
-                Unblock Users
-              </button>
-            </div>
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" id="selectAll"/></th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Last Login</th>
-                            <th>ID</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var u in Model)
-                        {
+                  <button type="submit" asp-controller="Dashboard" asp-action="BlockUsers" class="btn btn-outline-primary" title="Block all selected users. Blocked users can't log in or access the dashboard.">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+      <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"></path>
+    </svg>
+                    Block
+                  </button>
+              
+                  <button type="submit" asp-controller="Dashboard" asp-action="UnblockUsers"  class="btn btn-outline-primary" title="Unblock all selected users. Blocked users can't log in or access the dashboard.">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock" viewBox="0 0 16 16">
+      <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2M3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1z"/>
+    </svg>
+                  </button>
+              
+                  <button type="submit" asp-controller="Dashboard" asp-action="DeleteUsers"   class="btn btn-outline-danger" title="Delete all selected users. This action is irreversible!">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+      <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+    </svg>
+                  </button>
+                 </div>
+                 <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>
-                                    <input type="checkbox" name="SelectedUserIds" value="@u.Id" class="UserSelectionCheckbox"/>
-                                </td>
-                                <td>@u.Username</td>
-                                <td>@u.Email</td>
-                                <td>
-                                    @if (u.LastLogin == null)
-                                    {
-                                        <span class="badge bg-warning">Never</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-info">@u.LastLogin</span>
-                                    }
-                                </td>
-                                <td>@u.Id</td>
-                                <td>
-                                    @if (!u.Blocked) 
-                                    { 
-                                        <span class="badge bg-success">Active</span> 
-                                    }
-                                    else             
-                                    { 
-                                        <span class="badge bg-danger">Blocked</span>
-                                    }
-                                </td>
+                                <th><input type="checkbox" id="selectAll"/></th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Last Login</th>
+                                <th>ID</th>
+                                <th>Status</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var u in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="SelectedUserIds" value="@u.Id" class="UserSelectionCheckbox"/>
+                                    </td>
+                                    <td>@u.Username</td>
+                                    <td>@u.Email</td>
+                                    <td>
+                                        @if (u.LastLogin == null)
+                                        {
+                                            <span class="badge bg-warning">Never</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info">@u.LastLogin</span>
+                                        }
+                                    </td>
+                                    <td>@u.Id</td>
+                                    <td>
+                                        @if (!u.Blocked) 
+                                        { 
+                                            <span class="badge bg-success">Active</span> 
+                                        }
+                                        else             
+                                        { 
+                                            <span class="badge bg-danger">Blocked</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
                 <div class="text-center">
                     <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
                 </div>
