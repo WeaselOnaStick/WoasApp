@@ -22,6 +22,12 @@ namespace WoasApp.Controllers
 
         async public Task<IActionResult> Index()
         {
+            if (!SignInManager.IsSignedIn(User))
+            {
+                TempData["Message"] = "You must be signed in to access the dashboard!";
+                return RedirectToAction("Index", "Home");
+            }
+
             var users = await UserManager.Users.Include(u => u.LoginTimes).ToListAsync();
             var usersViewModel = users.Select(u => new UserViewModel
             {
