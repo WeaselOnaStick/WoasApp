@@ -5,8 +5,8 @@ namespace WoasApp.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Name Required!")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Username Required!")]
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "Email Required!")]
         [EmailAddress]

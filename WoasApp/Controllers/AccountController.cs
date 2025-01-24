@@ -65,7 +65,7 @@ namespace WoasApp.Controllers
 
             WoasAppUser user = new WoasAppUser
             {
-                UserName = model.Name,
+                UserName = model.Username,
                 Email = model.Email,
                 Blocked = false
             };
